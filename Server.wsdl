@@ -1,0 +1,1344 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://10.74.50.100/wssistemadmin/server.php" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="ClienteDAO" targetNamespace="http://10.74.50.100/wssistemadmin/server.php">
+<types>
+<xsd:schema targetNamespace="http://10.74.50.100/wssistemadmin/server.php">
+<xsd:complexType name="ArrayOfRol">
+<xsd:complexContent>
+<xsd:restriction base="soap-enc:Array">
+<xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:Rol[]"/>
+</xsd:restriction>
+</xsd:complexContent>
+</xsd:complexType>
+<xsd:complexType name="ArrayOfRol_Nodo">
+<xsd:complexContent>
+<xsd:restriction base="soap-enc:Array">
+<xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:Rol_Nodo[]"/>
+</xsd:restriction>
+</xsd:complexContent>
+</xsd:complexType>
+<xsd:complexType name="DestinoExtendido">
+<xsd:all>
+<xsd:element name="Id" type="xsd:int" nillable="true"/>
+<xsd:element name="Nombre" type="xsd:string" nillable="true"/>
+<xsd:element name="Padre" type="tns:DestinoExtendido" nillable="true"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="Destino">
+<xsd:all>
+<xsd:element name="Id" type="xsd:int" nillable="true"/>
+<xsd:element name="Nombre" type="xsd:string" nillable="true"/>
+<xsd:element name="Padre" type="tns:DestinoExtendido" nillable="true"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="Rol_NodoExtendido">
+<xsd:all>
+<xsd:element name="Id" type="xsd:int" nillable="true"/>
+<xsd:element name="Padre" type="tns:Rol_NodoExtendido" nillable="true"/>
+<xsd:element name="Check" type="xsd:int" nillable="true"/>
+<xsd:element name="Destino" type="tns:Destino" nillable="true"/>
+<xsd:element name="Nivel" type="xsd:int" nillable="true"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="Rol_Nodo">
+<xsd:all>
+<xsd:element name="Id" type="xsd:int" nillable="true"/>
+<xsd:element name="Padre" type="tns:Rol_NodoExtendido" nillable="true"/>
+<xsd:element name="Check" type="xsd:int" nillable="true"/>
+<xsd:element name="Destino" type="tns:Destino" nillable="true"/>
+<xsd:element name="Nivel" type="xsd:int" nillable="true"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="Rol">
+<xsd:all>
+<xsd:element name="Id" type="xsd:int" nillable="true"/>
+<xsd:element name="Nombre" type="xsd:string" nillable="true"/>
+<xsd:element name="Habilitado" type="xsd:string" nillable="true"/>
+<xsd:element name="Error" type="xsd:string" nillable="true"/>
+<xsd:element name="Total_Rows" type="xsd:int" nillable="true"/>
+<xsd:element name="Aplicacion" type="xsd:struct" nillable="true"/>
+<xsd:element name="Nodos" type="tns:ArrayOfRol_Nodo" nillable="true"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="ArrayOfGrupo">
+<xsd:complexContent>
+<xsd:restriction base="soap-enc:Array">
+<xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:Grupo[]"/>
+</xsd:restriction>
+</xsd:complexContent>
+</xsd:complexType>
+<xsd:complexType name="ArrayOfComponente">
+<xsd:complexContent>
+<xsd:restriction base="soap-enc:Array">
+<xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:Componente[]"/>
+</xsd:restriction>
+</xsd:complexContent>
+</xsd:complexType>
+<xsd:complexType name="Icono">
+<xsd:all>
+<xsd:element name="Id" type="xsd:int" nillable="true"/>
+<xsd:element name="Nombre" type="xsd:string" nillable="true"/>
+<xsd:element name="Path" type="xsd:string" nillable="true"/>
+<xsd:element name="Error" type="xsd:string" nillable="true"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="Tipo_Componente">
+<xsd:all>
+<xsd:element name="Id" type="xsd:int" nillable="true"/>
+<xsd:element name="Nombre" type="xsd:string" nillable="true"/>
+<xsd:element name="Error" type="xsd:string" nillable="true"/>
+<xsd:element name="Icono" type="tns:Icono" nillable="true"/>
+<xsd:element name="Total_Rows" type="xsd:int" nillable="true"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="Clase_Componente">
+<xsd:all>
+<xsd:element name="Id" type="xsd:int" nillable="true"/>
+<xsd:element name="Nombre" type="xsd:string" nillable="true"/>
+<xsd:element name="Tipo" type="tns:Tipo_Componente" nillable="true"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="ComponenteExtendido">
+<xsd:all>
+<xsd:element name="Id" type="xsd:int" nillable="true"/>
+<xsd:element name="Padre" type="tns:ComponenteExtendido" nillable="true"/>
+<xsd:element name="Codigo" type="xsd:string" nillable="true"/>
+<xsd:element name="Texto" type="xsd:string" nillable="true"/>
+<xsd:element name="Url" type="xsd:string" nillable="true"/>
+<xsd:element name="Clase" type="tns:Clase_Componente" nillable="true"/>
+<xsd:element name="Nivel" type="xsd:int" nillable="true"/>
+<xsd:element name="Habilitado" type="xsd:string" nillable="true"/>
+<xsd:element name="Orden" type="xsd:int" nillable="true"/>
+<xsd:element name="Aplicacion" type="xsd:struct" nillable="true"/>
+<xsd:element name="Error" type="xsd:string" nillable="true"/>
+<xsd:element name="Check" type="xsd:int" nillable="true"/>
+<xsd:element name="Total_Rows" type="xsd:int" nillable="true"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="Componente">
+<xsd:all>
+<xsd:element name="Id" type="xsd:int" nillable="true"/>
+<xsd:element name="Padre" type="tns:ComponenteExtendido" nillable="true"/>
+<xsd:element name="Codigo" type="xsd:string" nillable="true"/>
+<xsd:element name="Texto" type="xsd:string" nillable="true"/>
+<xsd:element name="Url" type="xsd:string" nillable="true"/>
+<xsd:element name="Clase" type="tns:Clase_Componente" nillable="true"/>
+<xsd:element name="Nivel" type="xsd:int" nillable="true"/>
+<xsd:element name="Habilitado" type="xsd:string" nillable="true"/>
+<xsd:element name="Orden" type="xsd:int" nillable="true"/>
+<xsd:element name="Aplicacion" type="xsd:struct" nillable="true"/>
+<xsd:element name="Error" type="xsd:string" nillable="true"/>
+<xsd:element name="Check" type="xsd:int" nillable="true"/>
+<xsd:element name="Total_Rows" type="xsd:int" nillable="true"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="Grupo">
+<xsd:all>
+<xsd:element name="Id" type="xsd:int" nillable="true"/>
+<xsd:element name="Nombre" type="xsd:string" nillable="true"/>
+<xsd:element name="Habilitado" type="xsd:string" nillable="true"/>
+<xsd:element name="Error" type="xsd:string" nillable="true"/>
+<xsd:element name="Total_Rows" type="xsd:int" nillable="true"/>
+<xsd:element name="Componentes" type="tns:ArrayOfComponente" nillable="true"/>
+<xsd:element name="Aplicacion" type="xsd:struct" nillable="true"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="ArrayOfAplicacion">
+<xsd:complexContent>
+<xsd:restriction base="soap-enc:Array">
+<xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:Aplicacion[]"/>
+</xsd:restriction>
+</xsd:complexContent>
+</xsd:complexType>
+<xsd:complexType name="Fuente">
+<xsd:all>
+<xsd:element name="Id" type="xsd:int" nillable="true"/>
+<xsd:element name="Nombre" type="xsd:string" nillable="true"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="ArrayOfDestino">
+<xsd:complexContent>
+<xsd:restriction base="soap-enc:Array">
+<xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:Destino[]"/>
+</xsd:restriction>
+</xsd:complexContent>
+</xsd:complexType>
+<xsd:complexType name="Personal">
+<xsd:all>
+<xsd:element name="Legajo" type="xsd:int" nillable="true"/>
+<xsd:element name="Nombre" type="xsd:string" nillable="true"/>
+<xsd:element name="Apellido" type="xsd:string" nillable="true"/>
+<xsd:element name="Destino" type="tns:Destino" nillable="true"/>
+<xsd:element name="Grado" type="xsd:string" nillable="true"/>
+<xsd:element name="Mail" type="xsd:string" nillable="true"/>
+<xsd:element name="Interno" type="xsd:string" nillable="true"/>
+<xsd:element name="Aplicacion" type="tns:Aplicacion" nillable="true"/>
+<xsd:element name="Documento" type="xsd:string" nillable="true"/>
+<xsd:element name="CUIL" type="xsd:string" nillable="true"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="Aplicacion">
+<xsd:all>
+<xsd:element name="Id" type="xsd:int" nillable="true"/>
+<xsd:element name="Nombre" type="xsd:string" nillable="true"/>
+<xsd:element name="Descripcion" type="xsd:string" nillable="true"/>
+<xsd:element name="Responsable" type="tns:Personal" nillable="true"/>
+<xsd:element name="Fuente" type="tns:Fuente" nillable="true"/>
+<xsd:element name="Ubicacion" type="xsd:string" nillable="true"/>
+<xsd:element name="Tipo" type="xsd:string" nillable="true"/>
+<xsd:element name="Publica" type="xsd:string" nillable="true"/>
+<xsd:element name="Destinos" type="tns:ArrayOfDestino" nillable="true"/>
+<xsd:element name="Autogestionada" type="xsd:int" nillable="true"/>
+<xsd:element name="ValidaMail" type="xsd:int" nillable="true"/>
+<xsd:element name="Externa" type="xsd:int" nillable="true"/>
+<xsd:element name="Default" type="xsd:int" nillable="true"/>
+<xsd:element name="Default_Perfil" type="tns:Grupo" nillable="true"/>
+<xsd:element name="Default_Rol" type="tns:Rol" nillable="true"/>
+<xsd:element name="Error" type="xsd:string" nillable="true"/>
+<xsd:element name="Total_Rows" type="xsd:int" nillable="true"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="Session">
+<xsd:all>
+<xsd:element name="Ip" type="xsd:string" nillable="true"/>
+<xsd:element name="PcName" type="xsd:string" nillable="true"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="Tipo_Usuario">
+<xsd:all>
+<xsd:element name="Id" type="xsd:int" nillable="true"/>
+<xsd:element name="Nombre" type="xsd:string" nillable="true"/>
+<xsd:element name="Error" type="xsd:string" nillable="true"/>
+<xsd:element name="Total_Rows" type="xsd:int" nillable="true"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="Usuario">
+<xsd:all>
+<xsd:element name="Id" type="xsd:int" nillable="true"/>
+<xsd:element name="Roles" type="tns:ArrayOfRol" nillable="true"/>
+<xsd:element name="Grupos" type="tns:ArrayOfGrupo" nillable="true"/>
+<xsd:element name="Habilitado" type="xsd:int" nillable="true"/>
+<xsd:element name="Administracion" type="tns:ArrayOfAplicacion" nillable="true"/>
+<xsd:element name="Forzar_Cambio" type="xsd:int" nillable="true"/>
+<xsd:element name="Session" type="tns:Session" nillable="true"/>
+<xsd:element name="Error" type="xsd:string" nillable="true"/>
+<xsd:element name="Total_Rows" type="xsd:int" nillable="true"/>
+<xsd:element name="Externo" type="xsd:int" nillable="true"/>
+<xsd:element name="Tipo" type="tns:Tipo_Usuario" nillable="true"/>
+<xsd:element name="Nickname" type="xsd:string" nillable="true"/>
+<xsd:element name="Dependencia_Operativa" type="tns:Destino" nillable="true"/>
+<xsd:element name="Legajo" type="xsd:int" nillable="true"/>
+<xsd:element name="Nombre" type="xsd:string" nillable="true"/>
+<xsd:element name="Apellido" type="xsd:string" nillable="true"/>
+<xsd:element name="Destino" type="tns:Destino" nillable="true"/>
+<xsd:element name="Grado" type="xsd:string" nillable="true"/>
+<xsd:element name="Mail" type="xsd:string" nillable="true"/>
+<xsd:element name="Interno" type="xsd:string" nillable="true"/>
+<xsd:element name="Aplicacion" type="tns:Aplicacion" nillable="true"/>
+<xsd:element name="Documento" type="xsd:string" nillable="true"/>
+<xsd:element name="CUIL" type="xsd:string" nillable="true"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="ArrayOfFilter">
+<xsd:complexContent>
+<xsd:restriction base="soap-enc:Array">
+<xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:Filter[]"/>
+</xsd:restriction>
+</xsd:complexContent>
+</xsd:complexType>
+<xsd:complexType name="Filter">
+<xsd:all>
+<xsd:element name="Campo" type="xsd:string" nillable="true"/>
+<xsd:element name="Operador" type="xsd:string" nillable="true"/>
+<xsd:element name="Valor" type="xsd:string" nillable="true"/>
+<xsd:element name="Concatenador" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="ArrayOfTipo_Componente">
+<xsd:complexContent>
+<xsd:restriction base="soap-enc:Array">
+<xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:Tipo_Componente[]"/>
+</xsd:restriction>
+</xsd:complexContent>
+</xsd:complexType>
+<xsd:complexType name="Existe">
+<xsd:all>
+<xsd:element name="Existe" type="xsd:string" nillable="true"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="ArrayOfUsuario">
+<xsd:complexContent>
+<xsd:restriction base="soap-enc:Array">
+<xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:Usuario[]"/>
+</xsd:restriction>
+</xsd:complexContent>
+</xsd:complexType>
+<xsd:complexType name="ArrayOfIcono">
+<xsd:complexContent>
+<xsd:restriction base="soap-enc:Array">
+<xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:Icono[]"/>
+</xsd:restriction>
+</xsd:complexContent>
+</xsd:complexType>
+<xsd:complexType name="Registro_Estado">
+<xsd:all>
+<xsd:element name="Id" type="xsd:int" nillable="true"/>
+<xsd:element name="Nombre" type="xsd:string" nillable="true"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="Registro">
+<xsd:all>
+<xsd:element name="Id" type="xsd:int" nillable="true"/>
+<xsd:element name="Usuario" type="tns:Usuario" nillable="true"/>
+<xsd:element name="Aplicacion" type="tns:Aplicacion" nillable="true"/>
+<xsd:element name="Fecha" type="xsd:string" nillable="true"/>
+<xsd:element name="Estado" type="tns:Registro_Estado" nillable="true"/>
+<xsd:element name="Validado" type="xsd:int" nillable="true"/>
+<xsd:element name="Error" type="xsd:string" nillable="true"/>
+<xsd:element name="Resolicitado" type="xsd:int"/>
+<xsd:element name="IsUserNew" type="xsd:int"/>
+<xsd:element name="Total_Rows" type="xsd:int" nillable="true"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="ArrayOfRegistro">
+<xsd:complexContent>
+<xsd:restriction base="soap-enc:Array">
+<xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:Registro[]"/>
+</xsd:restriction>
+</xsd:complexContent>
+</xsd:complexType>
+<xsd:complexType name="ArrayOfEmail_Template">
+<xsd:complexContent>
+<xsd:restriction base="soap-enc:Array">
+<xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:Email_Template[]"/>
+</xsd:restriction>
+</xsd:complexContent>
+</xsd:complexType>
+<xsd:complexType name="Email_Template">
+<xsd:all>
+<xsd:element name="Id" type="xsd:int" nillable="true"/>
+<xsd:element name="Nombre" type="xsd:string" nillable="true"/>
+<xsd:element name="Asunto" type="xsd:string" nillable="true"/>
+<xsd:element name="Template" type="xsd:string" nillable="true"/>
+<xsd:element name="Objetos" type="soap-enc:Array"/>
+<xsd:element name="Error" type="xsd:string" nillable="true"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="Preguntas">
+<xsd:all>
+<xsd:element name="Error" type="xsd:string" nillable="true"/>
+<xsd:element name="Hijos" type="xsd:int" nillable="true"/>
+<xsd:element name="EstCivil" type="xsd:string" nillable="true"/>
+<xsd:element name="FechaNac" type="xsd:string" nillable="true"/>
+<xsd:element name="CUIL" type="xsd:string" nillable="true"/>
+<xsd:element name="Usuario" type="tns:Usuario" nillable="true"/>
+</xsd:all>
+</xsd:complexType>
+</xsd:schema>
+</types>
+<portType name="ClienteDAOPort">
+<operation name="getMenuUsuario">
+<documentation>Obtener el Menu del Usuario</documentation>
+<input message="tns:getMenuUsuarioIn"/>
+<output message="tns:getMenuUsuarioOut"/>
+</operation>
+<operation name="listarMenus">
+<documentation>
+Obtener un listado de Menus acorde una Aplicacion dada
+</documentation>
+<input message="tns:listarMenusIn"/>
+<output message="tns:listarMenusOut"/>
+</operation>
+<operation name="listarDestinos">
+<documentation>Metodo que devuelve un listado dependencias</documentation>
+<input message="tns:listarDestinosIn"/>
+<output message="tns:listarDestinosOut"/>
+</operation>
+<operation name="listarAplicaciones">
+<documentation>
+Metodo que devuelve un listado de aplicaciones para un usuario determinado
+</documentation>
+<input message="tns:listarAplicacionesIn"/>
+<output message="tns:listarAplicacionesOut"/>
+</operation>
+<operation name="listarTipoComponentes">
+<documentation>
+Metodo que devuelve un listado de Tipos de Componentes
+</documentation>
+<input message="tns:listarTipoComponentesIn"/>
+<output message="tns:listarTipoComponentesOut"/>
+</operation>
+<operation name="saveComponente">
+<documentation>
+Metodo para guardar o update de un Tipo de Componente
+</documentation>
+<input message="tns:saveComponenteIn"/>
+<output message="tns:saveComponenteOut"/>
+</operation>
+<operation name="deletComponente">
+<documentation>Metodo para borrar Tipo Componente</documentation>
+<input message="tns:deletComponenteIn"/>
+<output message="tns:deletComponenteOut"/>
+</operation>
+<operation name="listarRoles">
+<documentation>Metodo que devuelve un listado de Roles</documentation>
+<input message="tns:listarRolesIn"/>
+<output message="tns:listarRolesOut"/>
+</operation>
+<operation name="getAplicacion">
+<documentation>Metodo que devuelve el detalle de la Aplicacion</documentation>
+<input message="tns:getAplicacionIn"/>
+<output message="tns:getAplicacionOut"/>
+</operation>
+<operation name="getNodosRol">
+<documentation>Metodo para obtener los Nodos de un Rol</documentation>
+<input message="tns:getNodosRolIn"/>
+<output message="tns:getNodosRolOut"/>
+</operation>
+<operation name="getComponentesGrupo">
+<documentation>Metodo para obtener los componentes del Grupo</documentation>
+<input message="tns:getComponentesGrupoIn"/>
+<output message="tns:getComponentesGrupoOut"/>
+</operation>
+<operation name="saveAplicacion">
+<documentation>Metodo para guardar o update de una aplicacion</documentation>
+<input message="tns:saveAplicacionIn"/>
+<output message="tns:saveAplicacionOut"/>
+</operation>
+<operation name="saveRol">
+<documentation>Metodo para guardar o update de un Rol</documentation>
+<input message="tns:saveRolIn"/>
+<output message="tns:saveRolOut"/>
+</operation>
+<operation name="deletRol">
+<documentation>Metodo para borrar un Rol</documentation>
+<input message="tns:deletRolIn"/>
+<output message="tns:deletRolOut"/>
+</operation>
+<operation name="deletAplicacion">
+<documentation>Metodo para borrar Aplicacion</documentation>
+<input message="tns:deletAplicacionIn"/>
+<output message="tns:deletAplicacionOut"/>
+</operation>
+<operation name="listarUsuarios">
+<documentation>
+Metodo para obtener el listado de usuarios correspondientes a una Aplicacion
+</documentation>
+<input message="tns:listarUsuariosIn"/>
+<output message="tns:listarUsuariosOut"/>
+</operation>
+<operation name="listarUsuariosApps">
+<documentation>
+@todo ver como interactuan este metodo y el de mas arriba Metodo para obtener el listado de todos los usuarios
+</documentation>
+<input message="tns:listarUsuariosAppsIn"/>
+<output message="tns:listarUsuariosAppsOut"/>
+</operation>
+<operation name="searchUsuario">
+<documentation>
+Metodo para obtener un Usuario a partir de un legajo
+</documentation>
+<input message="tns:searchUsuarioIn"/>
+<output message="tns:searchUsuarioOut"/>
+</operation>
+<operation name="searchUsuarioIncluidoExterno">
+<documentation>
+Metodo para buscar un usuario ya sea Personal PM o Externo
+</documentation>
+<input message="tns:searchUsuarioIncluidoExternoIn"/>
+<output message="tns:searchUsuarioIncluidoExternoOut"/>
+</operation>
+<operation name="listarGrupos">
+<documentation>Metodo para listar grupos en base a una Aplicacion</documentation>
+<input message="tns:listarGruposIn"/>
+<output message="tns:listarGruposOut"/>
+</operation>
+<operation name="saveGrupo">
+<documentation>Metodo para guardar o update de un Grupo</documentation>
+<input message="tns:saveGrupoIn"/>
+<output message="tns:saveGrupoOut"/>
+</operation>
+<operation name="deletGrupo">
+<documentation>Metodo para borrar Grupo</documentation>
+<input message="tns:deletGrupoIn"/>
+<output message="tns:deletGrupoOut"/>
+</operation>
+<operation name="saveGrupoUsuario">
+<documentation>
+Metodo para guardar o update de los Grupos a los que pertenece el Usuario
+</documentation>
+<input message="tns:saveGrupoUsuarioIn"/>
+<output message="tns:saveGrupoUsuarioOut"/>
+</operation>
+<operation name="saveTreeMenuGrupo">
+<documentation>Metodo guardar el Tree de Menu Grupo</documentation>
+<input message="tns:saveTreeMenuGrupoIn"/>
+<output message="tns:saveTreeMenuGrupoOut"/>
+</operation>
+<operation name="saveUsuario">
+<documentation>Metodo para guardar o update de un Usuario</documentation>
+<input message="tns:saveUsuarioIn"/>
+<output message="tns:saveUsuarioOut"/>
+</operation>
+<operation name="deletUsuario">
+<documentation>Metodo para borrar Usuario</documentation>
+<input message="tns:deletUsuarioIn"/>
+<output message="tns:deletUsuarioOut"/>
+</operation>
+<operation name="saveUsuarioAppsAdmin">
+<documentation>
+Metodo guardar las Aplicaciones que Administra el Usuario
+</documentation>
+<input message="tns:saveUsuarioAppsAdminIn"/>
+<output message="tns:saveUsuarioAppsAdminOut"/>
+</operation>
+<operation name="saveTreeRol">
+<documentation>Metodo guardar el Tree del Rol</documentation>
+<input message="tns:saveTreeRolIn"/>
+<output message="tns:saveTreeRolOut"/>
+</operation>
+<operation name="deletGrupoUsuario">
+<documentation>Metodo para borrar Grupo Usuario</documentation>
+<input message="tns:deletGrupoUsuarioIn"/>
+<output message="tns:deletGrupoUsuarioOut"/>
+</operation>
+<operation name="saveMenu">
+<documentation>Metodo para guardar o update de un Componente</documentation>
+<input message="tns:saveMenuIn"/>
+<output message="tns:saveMenuOut"/>
+</operation>
+<operation name="deletMenu">
+<documentation>Metodo para borrar un Componente</documentation>
+<input message="tns:deletMenuIn"/>
+<output message="tns:deletMenuOut"/>
+</operation>
+<operation name="getIconos">
+<documentation>
+Devuelve un listado de iconos de componentes. Si no se pasa un Id de Icono devuelve todos los Iconos disponibles.
+</documentation>
+<input message="tns:getIconosIn"/>
+<output message="tns:getIconosOut"/>
+</operation>
+<operation name="validarAcc">
+<documentation>Validar el Acceso del Usuario</documentation>
+<input message="tns:validarAccIn"/>
+<output message="tns:validarAccOut"/>
+</operation>
+<operation name="clearPassword">
+<documentation>Metodo para blanquear una password</documentation>
+<input message="tns:clearPasswordIn"/>
+<output message="tns:clearPasswordOut"/>
+</operation>
+<operation name="restorePassword">
+<documentation>Metodo para restaurar el password de un Usuario</documentation>
+<input message="tns:restorePasswordIn"/>
+<output message="tns:restorePasswordOut"/>
+</operation>
+<operation name="sendPassword">
+<documentation>Metodo para reenviar el password de un Usuario</documentation>
+<input message="tns:sendPasswordIn"/>
+<output message="tns:sendPasswordOut"/>
+</operation>
+<operation name="setNewPass">
+<documentation>Funcion para el cambio de password</documentation>
+<input message="tns:setNewPassIn"/>
+<output message="tns:setNewPassOut"/>
+</operation>
+<operation name="saveSolicitudRegistro">
+<documentation>Metodo para guardar una solicitud de registracion</documentation>
+<input message="tns:saveSolicitudRegistroIn"/>
+<output message="tns:saveSolicitudRegistroOut"/>
+</operation>
+<operation name="listarRegistraciones">
+<documentation>
+Metodo para obtener un listado de las solicitudes de registracion de nuevos usuarios
+</documentation>
+<input message="tns:listarRegistracionesIn"/>
+<output message="tns:listarRegistracionesOut"/>
+</operation>
+<operation name="saveDefaultRolPerfil">
+<documentation>
+Metodo para guardar o update de los Perfiles y Roles de Default
+</documentation>
+<input message="tns:saveDefaultRolPerfilIn"/>
+<output message="tns:saveDefaultRolPerfilOut"/>
+</operation>
+<operation name="validateHash">
+<documentation>Metodo para validar un hash de un usuario</documentation>
+<input message="tns:validateHashIn"/>
+<output message="tns:validateHashOut"/>
+</operation>
+<operation name="updateEstadoSolicitudRegistracion">
+<documentation>Metodo para cambiar el estado de la Solicitud</documentation>
+<input message="tns:updateEstadoSolicitudRegistracionIn"/>
+<output message="tns:updateEstadoSolicitudRegistracionOut"/>
+</operation>
+<operation name="listarEmailsTemplates">
+<documentation>
+Metodo para obtener todos los templates de email disponibles
+</documentation>
+<input message="tns:listarEmailsTemplatesIn"/>
+<output message="tns:listarEmailsTemplatesOut"/>
+</operation>
+<operation name="getEmailTemplate">
+<documentation>Metodo para obtener un Email Template</documentation>
+<input message="tns:getEmailTemplateIn"/>
+<output message="tns:getEmailTemplateOut"/>
+</operation>
+<operation name="saveEmailTemplate">
+<documentation>
+Metodo para guadar las modificaciones de un Email Template
+</documentation>
+<input message="tns:saveEmailTemplateIn"/>
+<output message="tns:saveEmailTemplateOut"/>
+</operation>
+<operation name="searchPreguntas">
+<documentation>
+Metodo para comparar respuestas de seguridad de un Usuario a partir de un legajo
+</documentation>
+<input message="tns:searchPreguntasIn"/>
+<output message="tns:searchPreguntasOut"/>
+</operation>
+</portType>
+<binding name="ClienteDAOBinding" type="tns:ClienteDAOPort">
+<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+<operation name="getMenuUsuario">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#getMenuUsuario"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="listarMenus">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#listarMenus"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="listarDestinos">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#listarDestinos"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="listarAplicaciones">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#listarAplicaciones"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="listarTipoComponentes">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#listarTipoComponentes"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="saveComponente">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#saveComponente"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="deletComponente">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#deletComponente"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="listarRoles">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#listarRoles"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="getAplicacion">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#getAplicacion"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="getNodosRol">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#getNodosRol"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="getComponentesGrupo">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#getComponentesGrupo"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="saveAplicacion">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#saveAplicacion"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="saveRol">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#saveRol"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="deletRol">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#deletRol"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="deletAplicacion">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#deletAplicacion"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="listarUsuarios">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#listarUsuarios"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="listarUsuariosApps">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#listarUsuariosApps"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="searchUsuario">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#searchUsuario"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="searchUsuarioIncluidoExterno">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#searchUsuarioIncluidoExterno"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="listarGrupos">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#listarGrupos"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="saveGrupo">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#saveGrupo"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="deletGrupo">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#deletGrupo"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="saveGrupoUsuario">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#saveGrupoUsuario"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="saveTreeMenuGrupo">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#saveTreeMenuGrupo"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="saveUsuario">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#saveUsuario"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="deletUsuario">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#deletUsuario"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="saveUsuarioAppsAdmin">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#saveUsuarioAppsAdmin"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="saveTreeRol">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#saveTreeRol"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="deletGrupoUsuario">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#deletGrupoUsuario"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="saveMenu">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#saveMenu"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="deletMenu">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#deletMenu"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="getIconos">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#getIconos"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="validarAcc">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#validarAcc"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="clearPassword">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#clearPassword"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="restorePassword">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#restorePassword"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="sendPassword">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#sendPassword"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="setNewPass">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#setNewPass"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="saveSolicitudRegistro">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#saveSolicitudRegistro"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="listarRegistraciones">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#listarRegistraciones"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="saveDefaultRolPerfil">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#saveDefaultRolPerfil"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="validateHash">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#validateHash"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="updateEstadoSolicitudRegistracion">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#updateEstadoSolicitudRegistracion"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="listarEmailsTemplates">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#listarEmailsTemplates"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="getEmailTemplate">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#getEmailTemplate"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="saveEmailTemplate">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#saveEmailTemplate"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+<operation name="searchPreguntas">
+<soap:operation soapAction="http://10.74.50.100/wssistemadmin/server.php#searchPreguntas"/>
+<input>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</input>
+<output>
+<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.74.50.100/wssistemadmin/server.php"/>
+</output>
+</operation>
+</binding>
+<service name="ClienteDAOService">
+<port name="ClienteDAOPort" binding="tns:ClienteDAOBinding">
+<soap:address location="http://10.74.50.100/wssistemadmin/server.php"/>
+</port>
+</service>
+<message name="getMenuUsuarioIn">
+<part name="usuario" type="tns:Usuario"/>
+</message>
+<message name="getMenuUsuarioOut">
+<part name="return" type="tns:ArrayOfComponente"/>
+</message>
+<message name="listarMenusIn">
+<part name="start" type="xsd:int"/>
+<part name="limit" type="xsd:int"/>
+<part name="sidx" type="xsd:int"/>
+<part name="sord" type="xsd:string"/>
+<part name="aplicacion" type="tns:Aplicacion"/>
+</message>
+<message name="listarMenusOut">
+<part name="return" type="tns:ArrayOfComponente"/>
+</message>
+<message name="listarDestinosIn">
+<part name="start" type="xsd:int"/>
+<part name="limit" type="xsd:int"/>
+<part name="sidx" type="xsd:int"/>
+<part name="sord" type="xsd:string"/>
+</message>
+<message name="listarDestinosOut">
+<part name="return" type="tns:ArrayOfDestino"/>
+</message>
+<message name="listarAplicacionesIn">
+<part name="start" type="xsd:int"/>
+<part name="limit" type="xsd:int"/>
+<part name="sidx" type="xsd:int"/>
+<part name="sord" type="xsd:string"/>
+<part name="usuario" type="tns:Usuario"/>
+<part name="filters" type="tns:ArrayOfFilter"/>
+</message>
+<message name="listarAplicacionesOut">
+<part name="return" type="tns:ArrayOfAplicacion"/>
+</message>
+<message name="listarTipoComponentesIn">
+<part name="start" type="xsd:int"/>
+<part name="limit" type="xsd:int"/>
+<part name="sidx" type="xsd:int"/>
+<part name="sord" type="xsd:string"/>
+<part name="filters" type="tns:ArrayOfFilter"/>
+</message>
+<message name="listarTipoComponentesOut">
+<part name="return" type="tns:ArrayOfTipo_Componente"/>
+</message>
+<message name="saveComponenteIn">
+<part name="componente" type="tns:Tipo_Componente"/>
+</message>
+<message name="saveComponenteOut">
+<part name="return" type="tns:Existe"/>
+</message>
+<message name="deletComponenteIn">
+<part name="componente" type="tns:Tipo_Componente"/>
+</message>
+<message name="deletComponenteOut">
+<part name="return" type="tns:Existe"/>
+</message>
+<message name="listarRolesIn">
+<part name="start" type="xsd:int"/>
+<part name="limit" type="xsd:int"/>
+<part name="sidx" type="xsd:int"/>
+<part name="sord" type="xsd:string"/>
+<part name="filters" type="tns:ArrayOfFilter"/>
+</message>
+<message name="listarRolesOut">
+<part name="return" type="tns:ArrayOfRol"/>
+</message>
+<message name="getAplicacionIn">
+<part name="aplicacion" type="tns:Aplicacion"/>
+</message>
+<message name="getAplicacionOut">
+<part name="return" type="tns:Aplicacion"/>
+</message>
+<message name="getNodosRolIn">
+<part name="rol" type="tns:Rol"/>
+</message>
+<message name="getNodosRolOut">
+<part name="return" type="tns:ArrayOfRol_Nodo"/>
+</message>
+<message name="getComponentesGrupoIn">
+<part name="grupo" type="tns:Grupo"/>
+</message>
+<message name="getComponentesGrupoOut">
+<part name="return" type="tns:ArrayOfComponente"/>
+</message>
+<message name="saveAplicacionIn">
+<part name="app" type="tns:Aplicacion"/>
+<part name="usuario" type="tns:Usuario"/>
+</message>
+<message name="saveAplicacionOut">
+<part name="return" type="tns:Existe"/>
+</message>
+<message name="saveRolIn">
+<part name="rol" type="tns:Rol"/>
+</message>
+<message name="saveRolOut">
+<part name="return" type="tns:Existe"/>
+</message>
+<message name="deletRolIn">
+<part name="rol" type="tns:Rol"/>
+</message>
+<message name="deletRolOut">
+<part name="return" type="tns:Existe"/>
+</message>
+<message name="deletAplicacionIn">
+<part name="app" type="tns:Aplicacion"/>
+</message>
+<message name="deletAplicacionOut">
+<part name="return" type="tns:Existe"/>
+</message>
+<message name="listarUsuariosIn">
+<part name="start" type="xsd:int"/>
+<part name="limit" type="xsd:int"/>
+<part name="sidx" type="xsd:int"/>
+<part name="sord" type="xsd:string"/>
+<part name="filters" type="tns:ArrayOfFilter"/>
+</message>
+<message name="listarUsuariosOut">
+<part name="return" type="tns:ArrayOfUsuario"/>
+</message>
+<message name="listarUsuariosAppsIn">
+<part name="start" type="xsd:int"/>
+<part name="limit" type="xsd:int"/>
+<part name="sidx" type="xsd:int"/>
+<part name="sord" type="xsd:string"/>
+<part name="filters" type="tns:ArrayOfFilter"/>
+</message>
+<message name="listarUsuariosAppsOut">
+<part name="return" type="tns:ArrayOfUsuario"/>
+</message>
+<message name="searchUsuarioIn">
+<part name="legajo" type="xsd:string"/>
+<part name="tipo" type="xsd:int"/>
+</message>
+<message name="searchUsuarioOut">
+<part name="return" type="tns:Usuario"/>
+</message>
+<message name="searchUsuarioIncluidoExternoIn">
+<part name="param" type="xsd:string"/>
+</message>
+<message name="searchUsuarioIncluidoExternoOut">
+<part name="return" type="tns:Usuario"/>
+</message>
+<message name="listarGruposIn">
+<part name="start" type="xsd:int"/>
+<part name="limit" type="xsd:int"/>
+<part name="sidx" type="xsd:int"/>
+<part name="sord" type="xsd:string"/>
+<part name="filters" type="tns:ArrayOfFilter"/>
+</message>
+<message name="listarGruposOut">
+<part name="return" type="tns:ArrayOfGrupo"/>
+</message>
+<message name="saveGrupoIn">
+<part name="grupo" type="tns:Grupo"/>
+</message>
+<message name="saveGrupoOut">
+<part name="return" type="tns:Existe"/>
+</message>
+<message name="deletGrupoIn">
+<part name="grupo" type="tns:Grupo"/>
+</message>
+<message name="deletGrupoOut">
+<part name="return" type="tns:Existe"/>
+</message>
+<message name="saveGrupoUsuarioIn">
+<part name="usuario" type="tns:Usuario"/>
+</message>
+<message name="saveGrupoUsuarioOut">
+<part name="return" type="tns:Existe"/>
+</message>
+<message name="saveTreeMenuGrupoIn">
+<part name="grupo" type="tns:Grupo"/>
+</message>
+<message name="saveTreeMenuGrupoOut">
+<part name="return" type="tns:Existe"/>
+</message>
+<message name="saveUsuarioIn">
+<part name="usuario" type="tns:Usuario"/>
+</message>
+<message name="saveUsuarioOut">
+<part name="return" type="tns:Existe"/>
+</message>
+<message name="deletUsuarioIn">
+<part name="usuario" type="tns:Usuario"/>
+</message>
+<message name="deletUsuarioOut">
+<part name="return" type="tns:Existe"/>
+</message>
+<message name="saveUsuarioAppsAdminIn">
+<part name="usuario" type="tns:Usuario"/>
+</message>
+<message name="saveUsuarioAppsAdminOut">
+<part name="return" type="tns:Existe"/>
+</message>
+<message name="saveTreeRolIn">
+<part name="rol" type="tns:Rol"/>
+</message>
+<message name="saveTreeRolOut">
+<part name="return" type="tns:Existe"/>
+</message>
+<message name="deletGrupoUsuarioIn">
+<part name="usuario" type="tns:Usuario"/>
+<part name="aplicacion" type="tns:Aplicacion"/>
+</message>
+<message name="deletGrupoUsuarioOut">
+<part name="return" type="tns:Existe"/>
+</message>
+<message name="saveMenuIn">
+<part name="componente" type="tns:Componente"/>
+</message>
+<message name="saveMenuOut">
+<part name="return" type="tns:Existe"/>
+</message>
+<message name="deletMenuIn">
+<part name="componente" type="tns:Componente"/>
+</message>
+<message name="deletMenuOut">
+<part name="return" type="tns:Existe"/>
+</message>
+<message name="getIconosIn">
+<part name="IdIcono" type="xsd:int"/>
+</message>
+<message name="getIconosOut">
+<part name="return" type="tns:ArrayOfIcono"/>
+</message>
+<message name="validarAccIn">
+<part name="usu" type="xsd:string"/>
+<part name="clv" type="xsd:string"/>
+<part name="app" type="xsd:int"/>
+<part name="pc" type="xsd:string"/>
+</message>
+<message name="validarAccOut">
+<part name="return" type="tns:Usuario"/>
+</message>
+<message name="clearPasswordIn">
+<part name="usuario" type="tns:Usuario"/>
+<part name="adminapp" type="tns:Usuario"/>
+</message>
+<message name="clearPasswordOut">
+<part name="return" type="tns:Existe"/>
+</message>
+<message name="restorePasswordIn">
+<part name="usuario" type="tns:Usuario"/>
+</message>
+<message name="restorePasswordOut">
+<part name="return" type="tns:Usuario"/>
+</message>
+<message name="sendPasswordIn">
+<part name="usuario" type="xsd:string"/>
+</message>
+<message name="sendPasswordOut">
+<part name="return" type="tns:Existe"/>
+</message>
+<message name="setNewPassIn">
+<part name="old_cvl" type="xsd:string"/>
+<part name="new_cvl" type="xsd:string"/>
+<part name="usuario" type="tns:Usuario"/>
+</message>
+<message name="setNewPassOut">
+<part name="return" type="tns:Existe"/>
+</message>
+<message name="saveSolicitudRegistroIn">
+<part name="registro" type="tns:Registro"/>
+</message>
+<message name="saveSolicitudRegistroOut">
+<part name="return" type="tns:Registro"/>
+</message>
+<message name="listarRegistracionesIn">
+<part name="start" type="xsd:int"/>
+<part name="limit" type="xsd:int"/>
+<part name="sidx" type="xsd:int"/>
+<part name="sord" type="xsd:string"/>
+<part name="Aplicacion" type="tns:Aplicacion"/>
+<part name="filters" type="tns:ArrayOfFilter"/>
+</message>
+<message name="listarRegistracionesOut">
+<part name="return" type="tns:ArrayOfRegistro"/>
+</message>
+<message name="saveDefaultRolPerfilIn">
+<part name="Aplicacion" type="tns:Aplicacion"/>
+</message>
+<message name="saveDefaultRolPerfilOut">
+<part name="return" type="tns:Aplicacion"/>
+</message>
+<message name="validateHashIn">
+<part name="hash" type="xsd:string"/>
+</message>
+<message name="validateHashOut">
+<part name="return" type="tns:Registro"/>
+</message>
+<message name="updateEstadoSolicitudRegistracionIn">
+<part name="registro" type="tns:Registro"/>
+</message>
+<message name="updateEstadoSolicitudRegistracionOut">
+<part name="return" type="tns:Registro"/>
+</message>
+<message name="listarEmailsTemplatesIn"/>
+<message name="listarEmailsTemplatesOut">
+<part name="return" type="tns:ArrayOfEmail_Template"/>
+</message>
+<message name="getEmailTemplateIn">
+<part name="id" type="xsd:int"/>
+</message>
+<message name="getEmailTemplateOut">
+<part name="return" type="tns:Email_Template"/>
+</message>
+<message name="saveEmailTemplateIn">
+<part name="template" type="tns:Email_Template"/>
+</message>
+<message name="saveEmailTemplateOut">
+<part name="return" type="tns:Email_Template"/>
+</message>
+<message name="searchPreguntasIn">
+<part name="legajo" type="xsd:int"/>
+<part name="respuestas" type="tns:Preguntas"/>
+</message>
+<message name="searchPreguntasOut">
+<part name="return" type="tns:Preguntas"/>
+</message>
+</definitions>
