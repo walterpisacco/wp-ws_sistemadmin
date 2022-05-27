@@ -9,11 +9,11 @@ set_include_path(get_include_path().PATH_SEPARATOR.'C:\Trabajos\Web;C:\Trabajos\
 
 define('HOSTDB','DESKTOP-M8OCNVV');
 define('HOSTDBREPLICA','DESKTOP-M8OCNVV');
-define("NAMEDB",'PM_SEGURIDAD');
-define('USER','sa');
-define('PASS','pintame');
+define("NAMEDB",'PSEGURIDAD');
+define('USER','xx');
+define('PASS','xx');
 
- /** Constante del path físico **/
+ /** Constante del path fÃ­sico **/
 define('PATHROOT','C:\Trabajos\Web\229_wssistemadmin');
 //define('PATHROOT','e:\sitioweb\wwwroot\wssistemadmin');
 
@@ -43,10 +43,10 @@ define('HOSTAUTOGESTIONENDPOINT',HOSTAUTOGESTION.'/index.php?modulo=autogestion&
 define('SMTP','mr.fibercorp.com.ar');
 
 /** USUARIO MAIL **/
-define('USUARIOMAIL','sistemas_resp_auto@policiadelaciudad.gob.ar');
+define('USUARIOMAIL','xx');
 
 /** PASSWORD MAIL **/
-define('PASSWORDMAIL','Abc123');
+define('PASSWORDMAIL','xx');
 
 require 'Zend/Loader/Autoloader.php';
 
