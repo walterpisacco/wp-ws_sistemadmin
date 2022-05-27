@@ -2264,9 +2264,9 @@ class ClienteDAO {
 	private function validarAccLDAP($usu,$clv){
 		$oError = new Error(false);
 		try {
-			$ldaprdn  = 'policia\\'.$usu;
+			$ldaprdn  = 'xx\\'.$usu;
 			$ldappass = trim($clv);
-			$ldapconn = ldap_connect("policia.gcba.gov.ar");
+			$ldapconn = ldap_connect("xx");
 			if(!($ldapconn)) throw new Exception("No se puede conectar al Servidor LDAP.");
 			
 			$ldapbind = ldap_bind($ldapconn, $ldaprdn, $ldappass);
